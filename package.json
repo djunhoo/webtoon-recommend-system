@@ -1,0 +1,31 @@
+{
+  "name": "webtoon",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "async": "^2.5.0",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.17.1",
+    "cheerio": "^1.0.0-rc.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "ejs": "~2.5.6",
+    "express": "~4.15.2",
+    "express-session": "^1.15.5",
+    "iconv-lite": "^0.4.19",
+    "jwt-simple": "^0.5.1",
+    "mongoose": "^4.11.11",
+    "mongoose-auto-increment": "^5.0.1",
+    "mongoose-autoincrement": "^1.0.0",
+    "mongoose-simple-random": "^0.4.1",
+    "morgan": "~1.8.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "request": "^2.81.0",
+    "serve-favicon": "~2.4.2"
+  }
+}
