@@ -12,6 +12,7 @@ var webtoonSchema = new Schema({
     name: String,
     writer: String,
     point: Number,
+    description: String,
     img_src: String,
     link_url: String,
     categorys: [{
