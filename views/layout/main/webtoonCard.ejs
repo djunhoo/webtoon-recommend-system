@@ -1,0 +1,56 @@
+<div class="col-md-12">
+    <div id="tab-card" class="card">
+        <!-- 카테고리 탭 -->
+        <ul class="nav nav-tabs" role="tablist" id="tabUl">
+
+            <% for(var i=0; i<categorys.length; i++) { %>
+                <% if(i == 0) { %>
+                    <li role="presentation" class="active">
+                        <a id="tagButton" href="#" onclick="onclickFunction('<%= categorys[i]._id %>');" type="button" aria-controls="<%= categorys[i].category_name %>" role="tab" data-toggle="tab">
+                            <%= categorys[i].category_name %>
+                        </a>
+                    </li>
+                    <% } else { %>
+                        <li role="presentation">
+                            <a id="tagButton" href="#" onclick="onclickFunction('<%= categorys[i]._id %>');" type="button" aria-controls="<%= categorys[i].category_name %>" role="tab" data-toggle="tab">
+                                <%= categorys[i].category_name %>
+                            </a>
+                        </li>
+                        <% } %>
+                            <% } %>
+
+        </ul>
+
+        <!-- 웹툰 탭 -->
+        <div class="tab-content">
+            <div class="row">
+
+                <% for(var i=0; i<webtoons.length; i++) {%>
+
+                    <div class="col-xs-3">
+                        <div class="card" id="webtoon_card">
+                            <a class="img-card" href="#">
+                                    <img src="<%= webtoons[i].img_src %>"/>
+                                </a>
+                            <div class="card-content">
+                                <h4 class="card-title">
+                                        <a href="#">
+                                            <%= webtoons[i].name %>
+                                        </a>
+                                    </h4>
+                                <div class="">
+                                    <%= webtoons[i].writer %>
+                                </div>
+                            </div>
+                            <div class="card-read-more">
+                                <a class="btn btn-link btn-block" href="#">
+                                        더 보기
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+    </div>
+</div>

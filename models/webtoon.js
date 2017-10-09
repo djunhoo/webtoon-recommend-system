@@ -16,15 +16,24 @@ var webtoonSchema = new Schema({
     img_src: String,
     link_url: String,
     categorys: [{
-      type: Number,
-      ref: 'webtoonCategory'
-    }]
+        type: Number,
+        ref: 'webtoonCategory'
+    }],
+    platform: String
 })
 
-webtoonSchema.plugin(autoIncrement.plugin, {model: 'webtoon', field: '_id', startAt:1, incrementBy: 1})
+webtoonSchema.plugin(autoIncrement.plugin, {
+    model: 'webtoon',
+    field: '_id',
+    startAt: 1,
+    incrementBy: 1
+})
 webtoonSchema.plugin(random);
 
 var webtoonModel = db.model('webtoon', webtoonSchema);
 
 
-module.exports = { webtoonModel: webtoonModel, webtoonSchema: webtoonSchema};
+module.exports = {
+    webtoonModel: webtoonModel,
+    webtoonSchema: webtoonSchema
+};
