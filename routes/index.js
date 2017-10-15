@@ -3,6 +3,23 @@ var router = express.Router();
 var Webtoon = require('../models/webtoon').webtoonModel;
 var Category = require('../models/WebtoonCategory').webtoonCategoryModel;
 
+router.post('/search', function(req, res, next) {
+    console.log('value=', req.body.name);
+    var name = req.body.name;
+    if( name == "" ) {
+        name = "wefij23f289f289524m2lkj9wefm23o";
+    }
+    Webtoon.find({name: new RegExp(name, "i")})
+        .limit(10)
+        .exec(function(err, docs) {
+            if(err) console.log('err=', err);
+            console.log('results=', docs);
+            res.send({
+                title: '웹툰 검색',
+                webtoon: docs
+            });
+        });
+});
 
 router.get('/search', function(req, res, next) {
     res.render('webtoon/search', {

@@ -8,6 +8,8 @@ var ObjectId = Schema.ObjectId;
 var autoIncrement = require('mongoose-auto-increment');
 autoIncrement.initialize(db);
 
+
+
 var webtoonSchema = new Schema({
     name: String,
     writer: String,
@@ -20,8 +22,13 @@ var webtoonSchema = new Schema({
         ref: 'webtoonCategory'
     }],
     platform: String
-})
+});
 
+webtoonSchema.index({
+    name: 'text',
+    description: 'text',
+    writer: 'text'
+});
 webtoonSchema.plugin(autoIncrement.plugin, {
     model: 'webtoon',
     field: '_id',
@@ -29,6 +36,7 @@ webtoonSchema.plugin(autoIncrement.plugin, {
     incrementBy: 1
 })
 webtoonSchema.plugin(random);
+
 
 var webtoonModel = db.model('webtoon', webtoonSchema);
 

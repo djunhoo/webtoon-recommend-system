@@ -27,7 +27,9 @@ urlModel.find({}, function(err, urls) {
           console.log('try err=', err);
       }
 
-
+      if(strName == undefined) {
+          return;
+      }
       console.log('strName=', strName);
       console.log('strWrtier=', strWriter);
       console.log('strWrtier=', strImage);
