@@ -20,10 +20,9 @@ var userSchema = mongoose.Schema({
       ref: 'job'
     },
     sex     : String,
-    categorys: String,
     token   : String,
-    platform : String
-
+    // category
+    // platform 수정해야됨.
 });
 
 // 해쉬 암호화

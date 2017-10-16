@@ -1,20 +1,19 @@
+
+
 <div class="materialContainer">
-
-
-   <div class="box">
-
+	<% include ../main/alert %>
+   <div class="box">	
       <div class="title">로그인</div>
-	
-	  <form action="/login" method="post">
+	  <form action="/users/login" method="post" id="loginForm">
 	      <div class="input">
 	         <label for="name">이메일</label>
-	         <input type="text" name="name" id="name">
+	         <input type="email" name="email" id="name">
 	         <span class="spin"></span>
 	      </div>
 
 	      <div class="input">
 	         <label for="pass">비밀번호</label>
-	         <input type="password" name="pass" id="pass">
+	         <input type="password" name="password" id="pass">
 	         <span class="spin"></span>
 	      </div>
 
@@ -30,28 +29,32 @@
       <div class="material-button alt-2"><span class="shape"></span></div>
 
       <div class="title">회원가입</div>
- 	  <form action="/signup" method="post">
+ 	  <form action="/users/signup" method="post" id="signupForm">
 	      <div class="input">
 	         <label for="regname">이메일</label>
-	         <input type="text" name="regname" id="regname">
+	         <input type="text" name="email" id="regname" class="validate" required="" aria-required="true">
 	         <span class="spin"></span>
 	      </div>
 
 	      <div class="input">
 	         <label for="regpass">비밀번호</label>
-	         <input type="password" name="regpass" id="regpass">
+	         <input type="password" name="password" id="regpass" class="validate" required="" aria-required="true">
 	         <span class="spin"></span>
 	      </div>
 
 	      <div class="input">
 	         <label for="reregpass">비밀번호 확인</label>
-	         <input type="password" name="reregpass" id="reregpass">
+	         <input type="password" name="repassword" id="reregpass" class="validate" required="" aria-required="true">
 	         <span class="spin"></span>
 	      </div>
 
 	      <div class="button">
 	         <button type="submit"><span>회원가입</span></button>
 	      </div>
+
+
       </form>
    </div>
 </div>
+
+

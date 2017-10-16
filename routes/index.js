@@ -16,7 +16,8 @@ router.post('/search', function(req, res, next) {
             console.log('results=', docs);
             res.send({
                 title: '웹툰 검색',
-                webtoon: docs
+                webtoon: docs,
+                user: req.user
             });
         });
 });
@@ -24,7 +25,8 @@ router.post('/search', function(req, res, next) {
 router.get('/search', function(req, res, next) {
     res.render('webtoon/search', {
         title: '웹툰 검색',
-        webtoon: null
+        webtoon: null,
+        user: req.user
     });
 });
 /* GET home page. */
@@ -50,7 +52,8 @@ router.get('/', function(req, res, next) {
             res.render('index', {
                 title: '웹툰 추천 시스템',
                 webtoons: results,
-                categorys: other
+                categorys: other,
+                user: req.user
             });
         });
     });
@@ -78,7 +81,8 @@ router.post('/', function(req, res, next) {
             res.send({
                 title: '웹툰 추천',
                 webtoons: results,
-                categorys: other
+                categorys: other,
+                user: req.user
             });
         });
     });

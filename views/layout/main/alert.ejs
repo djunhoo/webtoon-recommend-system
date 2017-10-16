@@ -1,0 +1,10 @@
+<!-- alert.ejs -->
+	<% if(message != "") { %>
+    	<div class="alert alert-danger" id="error">
+		  <%= message %>
+		</div>
+	<% } else if(success != "") { %>
+		<div class="alert alert-info" id="error">
+		  <%= success %>
+		</div>
+	<% } %>

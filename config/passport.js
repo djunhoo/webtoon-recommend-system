@@ -2,6 +2,7 @@
 var LocalStrategy   = require('passport-local').Strategy;
 var jwt = require('jwt-simple');
 var User            = require('../models/user'); // 사용자 모델
+var configAuth = require('./auth');
 
 
 
@@ -35,6 +36,7 @@ module.exports = function(passport) {
                    return done(null, false, req.flash('loginMessage', '아이디가 없습니다.'));
                if (!user.validPassword(password))
                    return done(null, false, req.flash('loginMessage', '비밀번호가 틀렸습니다.'));
+               req.flash('successMessage', "로그인 성공!");
                return done(null, user);
            });
 
@@ -53,7 +55,7 @@ module.exports = function(passport) {
             if (err)
                 return done(err);
             if (user) {
-                return done(null, false, req.flash('signupMessage', '회원가입이 되어 있는 이메일입니다.'));
+                return done(null, false, req.flash('loginMessage', '회원가입이 되어 있는 이메일입니다.'));
             } else {
                 var newUser      = new User();
                 newUser.email    = email;
@@ -64,6 +66,7 @@ module.exports = function(passport) {
                 newUser.save(function(err) {
                     if (err)
                         throw err;
+                    req.flash('successMessage', "회원가입 성공!");
                     return done(null, newUser);
                 });
             }
