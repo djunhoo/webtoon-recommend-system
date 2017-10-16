@@ -23,7 +23,8 @@ router.post('/search', function(req, res, next) {
 
 router.get('/search', function(req, res, next) {
     res.render('webtoon/search', {
-        title: '웹툰 검색'
+        title: '웹툰 검색',
+        webtoon: null
     });
 });
 /* GET home page. */

@@ -14,7 +14,7 @@ Webtoon.find({}, function(err, docs) {
         var random_name = uuid.v4();
         var options = {
             url: src,
-            dest: 'public/images/webtoon/'+ random_name + '.jpg' // Save to /path/to/dest/image.jpg
+            dest: '../public/images/webtoon/'+ random_name + '.jpg' // Save to /path/to/dest/image.jpg
         }
 
         download.image(options)
