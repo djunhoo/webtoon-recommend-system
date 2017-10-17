@@ -5,7 +5,7 @@ nav.navbar-findcond ul.navbar-nav a:hover,
 nav.navbar-findcond ul.navbar-nav a:visited,
 nav.navbar-findcond ul.navbar-nav a:focus,
 nav.navbar-findcond ul.navbar-nav a:active { background: #fff; }
-nav.navbar-findcond ul.navbar-nav a:hover { border-color: #4285F4; }
+nav.navbar-findcond ul.navbar-nav a:hover  { border-color: #4285F4; }
 nav.navbar-findcond li.divider { background: #000000; }
 nav.navbar-findcond button.navbar-toggle { background: #4285F4; border-radius: 2px; }
 nav.navbar-findcond button.navbar-toggle:hover { background: #4285F4; }
@@ -15,7 +15,6 @@ nav.navbar-findcond ul.dropdown-menu > li > a { color: #444; }
 nav.navbar-findcond ul.dropdown-menu > li > a:hover { background: #4285F4; color: #fff; }
 nav.navbar-findcond span.badge { background: #4285F4; font-weight: normal; font-size: 11px; margin: 0 4px; }
 nav.navbar-findcond span.badge.new { background: rgba(255, 0, 0, 0.8); color: #fff; }
-
 .carousel .item {
     width: 100%;
     /*slider width*/
@@ -63,7 +62,7 @@ nav.navbar-findcond span.badge.new { background: rgba(255, 0, 0, 0.8); color: #f
 
 .img-card img {
     width: 100%;
-    height: 200px;
+    height: 100px;
     object-fit: cover;
     transition: all .25s ease;
 }

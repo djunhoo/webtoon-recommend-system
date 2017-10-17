@@ -29,7 +29,7 @@
 
                     <div class="col-xs-3">
                         <div class="card" id="webtoon_card">
-                            <a class="img-card" href="#">
+                            <a class="img-card" href="/webtoon/<%= webtoons[i]._id %>">
                                     <img src="<%= webtoons[i].img_src %>"/>
                                 </a>
                             <div class="card-content">
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="card-read-more">
-                                <a class="btn btn-link btn-block" href="#">
+                                <a class="btn btn-link btn-block" href="/webtoon/<%= webtoons[i]._id %>">
                                         더 보기
                                     </a>
                             </div>

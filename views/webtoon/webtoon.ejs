@@ -1,3 +1,4 @@
+<!-- webtoon.ejs -->
 <!DOCTYPE html>
 <html>
 
@@ -7,7 +8,7 @@
     </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <!-- <link rel='stylesheet' href='/stylesheets/search.css' /> -->
-    <link rel='stylesheet' href='/stylesheets/newsearch.css' />
+    <link rel='stylesheet' href='/stylesheets/webtoonDetail.css' />
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -18,7 +19,6 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src='http://code.jquery.com/jquery-latest.js'></script>
     <!-- <script type="text/javascript" src="/javascript/search.js"></script> -->
-    <script type="text/javascript" src="/javascript/ajaxSearch.js"></script>
 </head>
 
 <body id="body">
@@ -26,9 +26,7 @@
 
     <br><br><br><br>
     <div class="container">
-        <% include ../layout/webtoon/searchbar %>
-
-        <% include ../layout/webtoon/searchContent %>
+		<% include ../layout/webtoon/webtoonCard %>		
     </div>
 
 

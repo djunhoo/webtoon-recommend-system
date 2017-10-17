@@ -10,6 +10,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 
 var index = require('./routes/index');
+var webtoon = require('./routes/webtoon');
 
 
 var app = express();
@@ -40,6 +41,7 @@ var users = require('./routes/users')(passport);
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/webtoon', webtoon);
 
 
 
