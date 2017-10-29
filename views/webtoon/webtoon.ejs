@@ -9,8 +9,12 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <!-- <link rel='stylesheet' href='/stylesheets/search.css' /> -->
     <link rel='stylesheet' href='/stylesheets/webtoonDetail.css' />
+    <link rel='stylesheet' href='/stylesheets/icon.css' />
+    <link rel='stylesheet' href='/stylesheets/webtoonComment.css' />
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="/stylesheets/star-rating.css" media="all" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="shortcut icon" href="http://icanbecreative.com/resources/images/favico.ico" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
@@ -18,21 +22,30 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
     <script src='http://code.jquery.com/jquery-latest.js'></script>
-    <!-- <script type="text/javascript" src="/javascript/search.js"></script> -->
+    <script src="/javascript/star-rating.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/javascript/materialize.js"></script>
 </head>
 
 <body id="body">
     <% include ../layout/main/header %>
 
-    <br><br><br><br>
-    <div class="container">
-		<% include ../layout/webtoon/webtoonCard %>		
-    </div>
+        <br><br><br><br>
+        <div class="container">
+            <% include ../layout/webtoon/webtoonCard %>
+            <% include ../layout/webtoon/webtoonCommentInput %>
+            <% include ../layout/webtoon/webtoonComments %>
+        </div>
 
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+        inputComment
+        $(document).on('ready', function(){
+            $('#inputComment').rating();
+            $('#input-3').rating({displayOnly: true, step: 0.5});
+        });
+        $('#rating').rating();
+        </script>
 </body>
 
 </html>

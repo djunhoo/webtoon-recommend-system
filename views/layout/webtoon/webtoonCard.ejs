@@ -1,36 +1,37 @@
 <div class="wrapper">
-    		
-    		<div class="card radius shadowDepth1">
-    			<div class="card__image border-tlr-radius">
-    				<img src="/images/banner.png" alt="image" class="border-tlr-radius">
+    <div class="card radius shadowDepth1">
+        <div class="card__image border-tlr-radius">
+            <img src="/images/banner.png" alt="image" class="border-tlr-radius">
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="cardcard">
+                <img class="card-img-top" src="<%= webtoon.img_src %>">
+                <div class="card-block">
+                    <h4 class="card-title"><%= webtoon.name %></h4>
+                    <div class="card-platform">
+                        <%= webtoon.categorys[0].category_name %>
+                    </div>
+                    <div class="card-text">
+                        <h5 class="bin">Tawshif is a web designer living</h5>
+                        <i class="naver"></i>
+                        <h5>&nbsp;&nbsp;<%= webtoon.platform %></h5>
+                    </div>
                 </div>
-                <div class="col-sm-6 col-md-4">
-                        <div class="cardcard">
-                            <img class="card-img-top" src="<%= webtoon.img_src %>">
-                            <div class="card-block">
-                                <h4 class="card-title"><%= webtoon.name %></h4>
-                                <div class="meta">
-                                    <a href="#">Friends</a>
-                                </div>
-                                <div class="card-text">
-                                    Tawshif is a web designer living in Bangladesh.
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="card__content card__padding">
-                    <article class="card__article">
-                        <h2><a href="#"><%= webtoon.name %></a>&nbsp;<small><%= webtoon.writer %></small></h2>
-                        <p><%= webtoon.description %></p>
-                        <button class="btn btn-primary like"><i class="glyphicon glyphicon-heart"></i> 좋아요</button>
-                        <button class="btn btn-success like"><i class="glyphicon glyphicon-share-alt"></i> 보러가기</button>
-                        <br><br>
-                        
-                    </article>
-                </div>
-
-
-    			
-
-    		</div>
+            </div>
+        </div>
+        <div class="card__content card__padding">
+            <article class="card__article">
+                <br>
+                <h2 style="display: inline;"><%= webtoon.name %>&nbsp;<small><%= webtoon.writer %></small></h2>
+                    &nbsp;&nbsp;<h6 style="display: inline-block;"><input id="input-3" name="input-3" min=1 max=5 step=0.01 value=<%= webtoon.point / 2.0 %>  disabled="false" class="rating"
+                    data-size="xs" data-show-clear="false" data-show-caption="false"></h6>
+                <p>
+                    <%= webtoon.description %>
+                </p>
+                <button class="btn btn-primary like"><i class="glyphicon glyphicon-ok"></i> 봤어요</button>
+                <button class="btn btn-success like"><i class="glyphicon glyphicon-share-alt"></i> 보러가기</button>
+                <br><br>
+            </article>
+        </div>
+    </div>
 </div>

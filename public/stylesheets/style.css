@@ -3,9 +3,9 @@ nav.navbar-findcond a { color: #000000;}
 nav.navbar-findcond ul.navbar-nav a { color: #000000; border-style: solid; border-width: 0 0 2px 0; border-color: #fff; }
 nav.navbar-findcond ul.navbar-nav a:hover,
 nav.navbar-findcond ul.navbar-nav a:visited,
-nav.navbar-findcond ul.navbar-nav a:focus,
-nav.navbar-findcond ul.navbar-nav a:active { background: #fff; }
-nav.navbar-findcond ul.navbar-nav a:hover  { border-color: #4285F4; }
+nav.navbar-findcond ul.navbar-nav a:focus { background: #FFFFFF; }
+nav.navbar-findcond ul.navbar-nav a:hover { border-color: #4285F4; }
+nav.navbar-findcond ul.navbar-nav a:active { border-color: #4285F4; }
 nav.navbar-findcond li.divider { background: #000000; }
 nav.navbar-findcond button.navbar-toggle { background: #4285F4; border-radius: 2px; }
 nav.navbar-findcond button.navbar-toggle:hover { background: #4285F4; }
@@ -15,6 +15,12 @@ nav.navbar-findcond ul.dropdown-menu > li > a { color: #444; }
 nav.navbar-findcond ul.dropdown-menu > li > a:hover { background: #4285F4; color: #fff; }
 nav.navbar-findcond span.badge { background: #4285F4; font-weight: normal; font-size: 11px; margin: 0 4px; }
 nav.navbar-findcond span.badge.new { background: rgba(255, 0, 0, 0.8); color: #fff; }
+nav.navbar-findcond ul > li.active > a,
+nav.navbar-findcond ul > li.active > a:hover,
+nav.navbar-findcond ul > li.active > a:focus
+{
+    border-color: #4285F4;
+}
 .carousel .item {
     width: 100%;
     /*slider width*/

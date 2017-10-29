@@ -1,0 +1,26 @@
+.profile_header {
+    background-color:#6B76BC;
+    height: 260px;
+}
+
+.center {
+    background-color:#6B76BC;
+    text-align: center;
+    position: relative;
+    top: 45%;
+    color: #FFFFFF;
+}
+.profile_content img {
+    width: 80px;
+    height: 80px;
+}
+
+.profile_content {
+    position: relative;
+    transform: 			translateY(-20%);
+}
+
+.row h6 {
+    color: #FFFFFF;
+    text-shadow: 0.1em 0.1em 0.15em #333;
+}

@@ -1,0 +1,45 @@
+.navbar-fixed-top {
+    background: #6B76BC;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+nav.navbar-fixed-top  a { color: #FFFFFF; font-size: 130%;}
+nav.navbar-fixed-top ul.navbar-nav a { font-size: 130%; color: #FFFFFF; border-style: solid; border-width: 0 0 2px 0; border-color: #6B76BC; }
+nav.navbar-fixed-top ul.navbar-nav a:hover,
+nav.navbar-fixed-top ul.navbar-nav a:visited,
+nav.navbar-fixed-top ul.navbar-nav a:focus,
+nav.navbar-fixed-top ul.navbar-nav a:active { background: #6B76BC; }
+nav.navbar-fixed-top ul.navbar-nav a:hover  { border-color: gray; }
+nav.navbar-fixed-top li.divider { background: #FFFFFF; }
+nav.navbar-fixed-top button.navbar-toggle { background: gray; border-radius: 2px; }
+nav.navbar-fixed-top button.navbar-toggle:hover { background: gray; }
+nav.navbar-fixed-top button.navbar-toggle > span.icon-bar { background: #fff; }
+nav.navbar-fixed-top ul.dropdown-menu { border: 0; background: #fff; border-radius: 4px; margin: 4px 0; box-shadow: 0 0 4px 0 #ccc; }
+nav.navbar-fixed-top ul.dropdown-menu > li > a { color: #444; }
+nav.navbar-fixed-top ul.dropdown-menu > li > a:hover { background: #6B76BC;}
+nav.navbar-fixed-top span.badge { background: #4285F4; font-weight: normal; font-size: 11px; margin: 0 4px; }
+nav.navbar-fixed-top span.badge.new { background: rgba(255, 0, 0, 0.8); color: #fff; }
+
+nav.navbar-centerNavbar { background: #fff; border-color: #ccc; box-shadow: 0 0 2px 0 #ccc; }
+nav.navbar-centerNavbar a { color: #000000;}
+nav.navbar-centerNavbar ul.navbar-nav a { color: #000000; border-style: solid; border-width: 0 0 2px 0; border-color: #fff; }
+nav.navbar-centerNavbar ul.navbar-nav a:hover,
+nav.navbar-centerNavbar ul.navbar-nav a:visited,
+nav.navbar-centerNavbar ul.navbar-nav a:focus,
+nav.navbar-centerNavbar ul.navbar-nav a:active { background: #fff; }
+nav.navbar-centerNavbar ul.navbar-nav a:hover  { border-color: #4285F4; }
+nav.navbar-centerNavbar li.divider { background: #000000; }
+nav.navbar-centerNavbar button.navbar-toggle { background: #4285F4; border-radius: 2px; }
+nav.navbar-centerNavbar button.navbar-toggle:hover { background: #4285F4; }
+nav.navbar-centerNavbar button.navbar-toggle > span.icon-bar { background: #fff; }
+nav.navbar-centerNavbar ul.dropdown-menu { border: 0; background: #fff; border-radius: 4px; margin: 4px 0; box-shadow: 0 0 4px 0 #ccc; }
+nav.navbar-centerNavbar ul.dropdown-menu > li > a { color: #444; }
+nav.navbar-centerNavbar ul.dropdown-menu > li > a:hover { background: #4285F4; color: #fff; }
+nav.navbar-centerNavbar span.badge { background: #4285F4; font-weight: normal; font-size: 11px; margin: 0 4px; }
+nav.navbar-centerNavbar span.badge.new { background: rgba(255, 0, 0, 0.8); color: #fff; }
+nav.navbar-centerNavbar ul > li.active > a,
+nav.navbar-centerNavbar ul > li.active > a:hover,
+nav.navbar-centerNavbar ul > li.active > a:focus
+{
+    border-color: #4285F4;
+}

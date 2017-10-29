@@ -5,13 +5,14 @@ module.exports = function(passport) {
     var User = require('../models/user');
     var Webtoon = require('../models/webtoon').webtoonModel;
     var Recommend = require('../models/recommend').recommendModel;
+    var common = require('../config/etc');
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {
             return next();
         } else {
             req.flash('successMessage', '로그인이 필요합니다.');
-            res.redirect('/login');
+            res.redirect('/users/login');
         }
     }
 
@@ -40,6 +41,47 @@ module.exports = function(passport) {
         req.logout();
         res.redirect('/');
     });
+
+    router.get('/edit', isLoggedIn, function(req, res, next) {
+        res.render('user/edit', {
+            title: '정보 수정',
+            tab: 5,
+            user: req.user
+        });
+    });
+
+    router.get('/mypage', isLoggedIn, function(req, res, next) {
+        res.render('user/mypage', {
+            title: '마이 페이지',
+            tab: 1,
+            user: req.user
+        });
+    });
+
+    router.get('/recommendWebtoons', isLoggedIn, function(req, res, next) {
+        res.render('user/recommendWebtoons', {
+            title: '마이페이지',
+            tab: 2,
+            user: req.user
+        });
+    });
+
+    router.get('/comments', isLoggedIn, function(req, res, next) {
+        res.render('user/comments', {
+            title: '마이페이지',
+            tab: 3,
+            user: req.user
+        });
+    });
+
+    router.get('/dashboard', isLoggedIn, function(req, res, next) {
+        res.render('user/dashboard', {
+            title: '마이페이지',
+            tab: 4,
+            user: req.user
+        });
+    });
+
 
     router.get('/rec', function(req, res, next) {
         Webtoon.findOne({ _id: 1 }, function(err, doc) {

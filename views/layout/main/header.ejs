@@ -1,4 +1,4 @@
-<nav class="navbar navbar-findcond navbar-fixed-top">
+<nav id="mynav" class="navbar navbar-findcond navbar-fixed-top">
     <div class="container">
 		<div class="navbar-header">
             <img src="/images/title.png" style="display: inline-block;" width="45" height="45">
@@ -27,10 +27,8 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= user.email %> &nbsp;<span class="glyphicon glyphicon-user"></span></a>
 						<% } %>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">마이 페이지</a></li>
-							<li><a href="#">웹툰 보관함<span class="badge">0</span></a></li>
-							<li class="divider"></li>
-							<li><a href="/users/logout">내 정보 수정</a></li>
+							<li><a href="/users/mypage">마이 페이지</a></li>
+							<li><a href="/users/update">내 정보 수정</a></li>
 							<li><a href="/users/logout">로그아웃</a></li>
 						</ul>
 					</li>

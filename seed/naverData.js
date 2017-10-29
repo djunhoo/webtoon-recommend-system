@@ -37,20 +37,23 @@ urlModel.find({}, function(err, urls) {
       console.log('strPoint=', parseFloat(strPoint));
       console.log('linkURL=', "http://comic.naver.com" + url.url);
       console.log('category=', url.category);
-
-      var newWebtoon = new Webtoon();
-      newWebtoon.name = strName;
-      newWebtoon.writer = strWriter;
-      newWebtoon.point = strPoint;
-      newWebtoon.description = strText;
-      newWebtoon.link_url = url;
-      newWebtoon.img_src = strImage;
-      newWebtoon.platform = url.platform;
-      newWebtoon.categorys.push(url.category);
-	  newWebtoon.save(function(err, doc) {
-		   if(err) console.log('err=', err);
-		   console.log('doc=', doc);
-	  });
+      Webtoon.findOne({name: strName}, function(err, webtoon){
+          if(!webtoon){
+              var newWebtoon = new Webtoon();
+              newWebtoon.name = strName;
+              newWebtoon.writer = strWriter;
+              newWebtoon.point = strPoint;
+              newWebtoon.description = strText;
+              newWebtoon.link_url = url;
+              newWebtoon.img_src = strImage;
+              newWebtoon.platform = url.platform;
+              newWebtoon.categorys.push(url.category);
+        	  newWebtoon.save(function(err, doc) {
+        		   if(err) console.log('err=', err);
+        		   console.log('doc=', doc);
+        	  });
+          }
+      });
     });
   });
 });

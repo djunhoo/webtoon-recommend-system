@@ -13,8 +13,7 @@ router.get('/:webtoon_id', function(req, res, next) {
 	if(!webtoon_id) {
 		console.log('파라미터 에러');
 	}
-
-	Webtoon.find({_id: webtoon_id}, function(err, doc) {
+	Webtoon.find({_id: webtoon_id}).populate('categorys').exec(function(err, doc) {
 		if(err) next(err);
 
 		if(!doc) {

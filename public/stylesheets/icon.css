@@ -1,0 +1,9 @@
+.naver {
+    background: url('../images/icon/naver.png');
+    background-size: 30px 30px;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    float: left;
+    /* Other styles here */
+}

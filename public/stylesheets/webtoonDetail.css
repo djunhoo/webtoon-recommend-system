@@ -7,7 +7,7 @@
 /*
 *  Basic Reset
 */
- 
+
 *,
 *:after,
 *:before {
@@ -53,9 +53,9 @@ h2 {
 /**
  * Helpers
  */
-.border-tlr-radius { 
+.border-tlr-radius {
   border-top-left-radius: 2px;
-  border-top-right-radius: 2px; 
+  border-top-right-radius: 2px;
 }
 
 .text-center { text-align: center; }
@@ -67,9 +67,9 @@ h2 {
 .shadowDepth0 { box-shadow: 0 1px 3px rgba(0,0,0, 0.12); }
 
 .shadowDepth1 {
-   box-shadow: 
+   box-shadow:
       0 1px 3px rgba(0,0,0, 0.12),
-      0 1px 2px rgba(0,0,0, 0.24);      
+      0 1px 2px rgba(0,0,0, 0.24);
 }
 
 
@@ -85,7 +85,7 @@ h2 {
 .card__padding {
   padding: 1.6rem;
 }
- 
+
 .card__image {
   min-height: 100px;
 }
@@ -131,7 +131,7 @@ h2 {
   padding-left: 1.6rem;
   padding-bottom: 1.6rem;
 }
-   
+
 .card__author {}
 
   .card__author img,
@@ -221,4 +221,51 @@ h2 {
     color: rgba(0, 0, 0, .4);
     border-top: 1px solid rgba(0, 0, 0, .05) !important;
     background: #fff;
+}
+
+.card-platform h5 {
+}
+
+.card-text .bin {
+    margin-top: -10px;
+    margin-bottom:0px;
+    color: #FFFFFF;
+}
+
+.review-card {
+    width: 100%;
+    height: auto;
+    background: #FFFFFF;
+    font-size: 1em;
+    overflow: hidden;
+    padding: 0;
+    border: none;
+    border-radius: .28571429rem;
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+}
+
+.review-card textarea {
+      border: 0px solid #eeeeee;
+      color: #444444;
+      padding: 10px;
+      margin: 0;
+      resize: none;
+      box-shadow: none;
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+}
+.form-control {
+box-shadow: none!important;}
+
+.review-card textarea:focus {
+  outline: none;
+}
+
+.col-md-2 .rate {
+    margin-top: -10px;
+}
+
+#submit {
+    margin-bottom: 10px;
+    float:right;
 }
