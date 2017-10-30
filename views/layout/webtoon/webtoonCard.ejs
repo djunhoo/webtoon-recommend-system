@@ -28,10 +28,21 @@
                 <p>
                     <%= webtoon.description %>
                 </p>
-                <button class="btn btn-primary like"><i class="glyphicon glyphicon-ok"></i> 봤어요</button>
-                <button class="btn btn-success like"><i class="glyphicon glyphicon-share-alt"></i> 보러가기</button>
+                <a id="read" onclick="onclickFunction('<%= webtoon._id %>');" class="btn btn-primary like"><i class="glyphicon glyphicon-ok"></i> 봤어요</a>
+                <a href="#" class="btn btn-success like"><i class="glyphicon glyphicon-share-alt"></i> 보러가기</a>
                 <br><br>
             </article>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+        var isRead = <%- isRead %>
+        if(!isRead) {
+            var location = $("#read").attr('href');
+            $("#read").removeAttr('href');
+            $("#read").addClass('disabled');
+        }
+    });
+</script>

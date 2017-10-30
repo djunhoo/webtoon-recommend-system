@@ -1,9 +1,11 @@
 // models/ user
 var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt-nodejs');
 var jobModel = require('./job').jobSchema;
 var categorySchema = require('./WebtoonCategory').webtoonCategorySchema;
 var db = require('./db');
+var webtoonSchema = require('./webtoon').webtoonSchema;
+var webtoon = require('./webtoon').webtoonModel;
 
 var Schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
@@ -13,14 +15,15 @@ var userSchema = mongoose.Schema({
     //_id              : Number,
     email: String,
     password: String,
-    name    : String,
-    age     : String,
-    job     : {
-      type: Number,
-      ref: 'job'
+    name: String,
+    age: String,
+    job: {
+        type: Number,
+        ref: 'job'
     },
-    sex     : String,
-    token   : String,
+    sex: String,
+    token: String,
+    readWebtoon: [webtoonSchema]
     // category
     // platform 수정해야됨.
 });
@@ -35,7 +38,12 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-userSchema.plugin(autoIncrement.plugin, {model: 'user', field: '_id', startAt: 1, incrementBy: 1});
+userSchema.plugin(autoIncrement.plugin, {
+    model: 'user',
+    field: '_id',
+    startAt: 1,
+    incrementBy: 1
+});
 
 var User = db.model('user', userSchema);
 

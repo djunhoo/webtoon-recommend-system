@@ -18,6 +18,5 @@ function onclickFunction(aId) {
 
         }
     });
-
     return false;
 }

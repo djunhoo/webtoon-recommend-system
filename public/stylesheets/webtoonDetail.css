@@ -269,3 +269,7 @@ box-shadow: none!important;}
     margin-bottom: 10px;
     float:right;
 }
+
+.card__article .like {
+    color: #FFFFFF;
+}

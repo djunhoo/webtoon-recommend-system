@@ -1,0 +1,15 @@
+<ul class="card-list">
+
+    <% for(var i=0; i<user.readWebtoon.length; i++) { %>
+        <li class="card">
+            <a class="card-image" href="/webtoon/<%= user.readWebtoon[i]._id %>" target="_blank" style="background-image: url(<%= user.readWebtoon[i].img_src %>);" data-image-full="<%= user.readWebtoon[i].img_src %>">
+    			<img src="<%= user.readWebtoon[i].img_src %>" alt="Psychopomp" />
+    		</a>
+            <a class="card-description" href="<%= user.readWebtoon[i].img_src %>" target="_blank">
+                <h2><%= user.readWebtoon[i].name %></h2>
+                <p><%= user.readWebtoon[i].writer %></p>
+            </a>
+        </li>
+    <% } %>
+
+</ul>

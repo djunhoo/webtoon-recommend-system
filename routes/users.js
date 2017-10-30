@@ -37,6 +37,48 @@ module.exports = function(passport) {
             failureFlash: true,
     }));
 
+    router.post('/webtoon/read', function(req, res, next) {
+        var user = req.user;
+        var webtoonId = req.body.webtoon_id;
+
+        if (user == undefined) {
+            console.log('("user is not found")')
+            return next(new Error("user is not found"));
+        }
+
+
+        if (!webtoonId)
+            next(new Error("webtoonId is not found"));
+
+        Webtoon.findOne({
+            _id: webtoonId
+        }, function(err, webtoon) {
+            if (err)
+                next(new Error("ERR"));
+            if (!webtoon)
+                next(new Error("webtoon is not found"));
+
+
+            var userWebtoon = user.readWebtoon;
+            var webtoonMap = new Map();
+            userWebtoon.forEach(function(userToon) {
+                webtoonMap.set(userToon.name, userToon);
+            });
+
+            var checkWebtoon = webtoonMap.get(webtoon.name)
+            if(!checkWebtoon) {
+                user.readWebtoon.push(webtoon);
+            }
+            user.save(function(err, doc) {
+                res.send({
+                    user: user,
+                    title: webtoon.name,
+                    webtoon: webtoon
+                })
+            });
+        });
+    });
+
     router.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');

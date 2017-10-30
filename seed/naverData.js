@@ -44,7 +44,7 @@ urlModel.find({}, function(err, urls) {
               newWebtoon.writer = strWriter;
               newWebtoon.point = strPoint;
               newWebtoon.description = strText;
-              newWebtoon.link_url = url;
+              newWebtoon.link_url = "http://comic.naver.com" + url.url;
               newWebtoon.img_src = strImage;
               newWebtoon.platform = url.platform;
               newWebtoon.categorys.push(url.category);
