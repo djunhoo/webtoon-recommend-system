@@ -2,7 +2,7 @@
 module.exports = function(passport) {
     var express = require('express');
     var router = express.Router();
-    var User = require('../models/user');
+    var User = require('../models/user').userModel;
     var Webtoon = require('../models/webtoon').webtoonModel;
     var Recommend = require('../models/recommend').recommendModel;
     var common = require('../config/etc');

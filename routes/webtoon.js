@@ -3,6 +3,38 @@
 var express = require('express');
 var router = express.Router();
 var Webtoon = require('../models/webtoon').webtoonModel;
+var Comment = require('../models/comment').commentModel;
+
+router.post('/comment/write', function(req, res, next) {
+
+    var webtoonId = req.body.webtoonId;
+    var userId = req.user._id;
+    var content = req.body.content;
+    var point = req.body.point;
+
+    if(!webtoonId || !userId || !content || !point) {
+        console.log('inavlid params');
+    }
+
+    Comment.findOne({userId: userId,
+                    webtoonId: webtoonId}, function(err, comment) {
+        if(comment) {
+            console.log('이미 리뷰가 있습니다.');
+            return;
+        } else {
+            var commentObject = new Comment();
+            commentObject.content = content;
+            commentObject.point = point;
+            commentObject.userId = userId;
+            commentObject.webtoonId = webtoonId;
+            commentObject.save();
+            Comment.populate(commentObject, {path: "userId"}, function(err, populateComment) {
+                res.send(populateComment);
+            });
+
+        }
+    });
+});
 
 
 router.get('/:webtoon_id', function(req, res, next) {

@@ -47,4 +47,7 @@ userSchema.plugin(autoIncrement.plugin, {
 
 var User = db.model('user', userSchema);
 
-module.exports = User;
+module.exports = {
+    userModel: User,
+    userSchema: userSchema
+};
