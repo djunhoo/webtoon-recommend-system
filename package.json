@@ -21,6 +21,7 @@
     "jwt-simple": "^0.5.1",
     "material-components-web": "^0.22.0",
     "materialize-css": "^0.100.2",
+    "moment-timezone": "^0.5.14",
     "mongoose": "^4.11.11",
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-autoincrement": "^1.0.0",

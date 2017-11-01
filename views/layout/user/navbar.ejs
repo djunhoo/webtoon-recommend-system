@@ -4,7 +4,7 @@
             <ul id="clickNav" class="nav navbar-nav navbar-left">
                 <li class="active"><a href="/users/mypage">봤어요<span class="badge"><%= user.readWebtoon.length; %></span></a></li>
                 <li id="recommend"><a href="/users/recommendWebtoons">추천 받은 웹툰<span class="badge">0</span></a></li>
-                <li id="comment"><a href="/users/comments">코멘트<span class="badge">0</span></a></li>
+                <li id="comment"><a href="/users/comments">코멘트<span class="badge"><%= comments.length %></span></a></li>
                 <li id="dashboard"><a href="/users/dashboard">평가 통계 분석</a></li>
 			</ul>
 		</div>

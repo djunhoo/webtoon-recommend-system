@@ -5,6 +5,7 @@ module.exports = function(passport) {
     var User = require('../models/user').userModel;
     var Webtoon = require('../models/webtoon').webtoonModel;
     var Recommend = require('../models/recommend').recommendModel;
+    var Comment = require('../models/comment').commentModel;
     var common = require('../config/etc');
 
     function isLoggedIn(req, res, next) {
@@ -26,15 +27,15 @@ module.exports = function(passport) {
     });
 
     router.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/',
-            failureRedirect : '/users/login',
-            failureFlash : true,
+        successRedirect: '/',
+        failureRedirect: '/users/login',
+        failureFlash: true,
     }));
 
     router.post('/signup', passport.authenticate('local-signup', {
-            successRedirect : '/users/login',
-            failureRedirect : '/users/login',
-            failureFlash: true,
+        successRedirect: '/users/login',
+        failureRedirect: '/users/login',
+        failureFlash: true,
     }));
 
     router.post('/webtoon/read', function(req, res, next) {
@@ -66,7 +67,7 @@ module.exports = function(passport) {
             });
 
             var checkWebtoon = webtoonMap.get(webtoon.name)
-            if(!checkWebtoon) {
+            if (!checkWebtoon) {
                 user.readWebtoon.push(webtoon);
             }
             user.save(function(err, doc) {
@@ -85,48 +86,75 @@ module.exports = function(passport) {
     });
 
     router.get('/edit', isLoggedIn, function(req, res, next) {
-        res.render('user/edit', {
-            title: '정보 수정',
-            tab: 5,
-            user: req.user
+        Comment.find({
+            userId: req.user._id
+        }).populate('userId').populate('webtoonId').exec().then(function(comments) {
+            res.render('user/edit', {
+                title: '정보 수정',
+                tab: 5,
+                user: req.user,
+                comments: comments
+            });
         });
     });
 
     router.get('/mypage', isLoggedIn, function(req, res, next) {
-        res.render('user/mypage', {
-            title: '마이 페이지',
-            tab: 1,
-            user: req.user
+        Comment.find({
+            userId: req.user._id
+        }).populate('userId').populate('webtoonId').exec().then(function(comments) {
+            res.render('user/mypage', {
+                title: '마이 페이지',
+                tab: 1,
+                user: req.user,
+                comments: comments
+            });
         });
     });
 
     router.get('/recommendWebtoons', isLoggedIn, function(req, res, next) {
-        res.render('user/recommendWebtoons', {
-            title: '마이페이지',
-            tab: 2,
-            user: req.user
+        Comment.find({
+            userId: req.user._id
+        }).populate('userId').populate('webtoonId').exec().then(function(comments) {
+            res.render('user/recommendWebtoons', {
+                title: '마이페이지',
+                tab: 2,
+                user: req.user,
+                comments: comments
+            });
         });
     });
 
     router.get('/comments', isLoggedIn, function(req, res, next) {
-        res.render('user/comments', {
-            title: '마이페이지',
-            tab: 3,
-            user: req.user
+        Comment.find({
+            userId: req.user._id
+        }).populate('userId').populate('webtoonId').exec().then(function(comments) {
+            res.render('user/comments', {
+                title: '마이페이지',
+                tab: 3,
+                user: req.user,
+                comments: comments
+            });
         });
     });
 
     router.get('/dashboard', isLoggedIn, function(req, res, next) {
-        res.render('user/dashboard', {
-            title: '마이페이지',
-            tab: 4,
-            user: req.user
+        Comment.find({
+            userId: req.user._id
+        }).populate('userId').populate('webtoonId').exec().then(function(comments) {
+            res.render('user/dashboard', {
+                title: '마이페이지',
+                tab: 4,
+                user: req.user,
+                comments: comments
+            });
         });
     });
 
 
     router.get('/rec', function(req, res, next) {
-        Webtoon.findOne({ _id: 1 }, function(err, doc) {
+        Webtoon.findOne({
+            _id: 1
+        }, function(err, doc) {
 
             var myrec = new Recommend();
             myrec.user_one_id = 1;

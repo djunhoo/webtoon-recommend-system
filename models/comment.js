@@ -18,7 +18,8 @@ var commentSchema = new Schema({
     webtoonId: {
         type: Number,
         ref: 'webtoon'
-    }
+    },
+    regdate: String
 });
 
 

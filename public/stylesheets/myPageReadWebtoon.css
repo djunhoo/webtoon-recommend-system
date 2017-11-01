@@ -73,3 +73,7 @@ html, body {
 .card-description:hover {
    text-decoration: none;
 }
+
+.card > a {
+	text-decoration: none;
+}

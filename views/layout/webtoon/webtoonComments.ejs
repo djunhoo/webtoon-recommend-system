@@ -1,45 +1,29 @@
 <!-- Contenedor Principal -->
 <div class="comments-container">
 	<ul id="comments-list" class="comments-list">
-		<li>
-			<div class="comment-main-level">
-				<!-- Avatar -->
-				<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
-				<!-- Contenedor del Comentario -->
-				<div class="comment-box">
-					<div class="comment-head">
-						<b style="float: left;">거노꾸꾸&nbsp;</b>
-						<span>hace 10 minutos&nbsp;</span>
-						<i class="glyphicon glyphicon-star"></i>
-						<i class="glyphicon glyphicon-star"></i>
-						<i class="glyphicon glyphicon-star"></i>
-						<i class="glyphicon glyphicon-star"></i>
-						<i class="glyphicon glyphicon-star"></i>
-					</div>
-					<div class="comment-content">
-						완전 노잼이에요 꾸꾸! 이렇게 노잼일수가없습니다꾸꾸!! 정말노잼입니다꾸꾸@!!!!!
-					</div>
-				</div>
-			</div>
-		</li>
-
-		<li>
-			<div class="comment-main-level">
-				<!-- Avatar -->
-				<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt=""></div>
-				<!-- Contenedor del Comentario -->
-				<div class="comment-box">
-					<div class="comment-head">
-						<h6 class="comment-name"><a href="http://creaticode.com/blog">소연 꾸꾸</a></h6>
-						<span>hace 10 minutos</span>
-						<i class="fa fa-reply"></i>
-						<i class="fa fa-heart"></i>
-					</div>
-					<div class="comment-content">
-						저는 좋았는데요... 날이오져서.... 웹툰도 오졌습니다....
+		<% for(var i=0; i<comments.length; i++) { %>
+			<li>
+				<div class="comment-main-level">
+					<!-- Avatar -->
+					<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
+					<!-- Contenedor del Comentario -->
+					<div class="comment-box">
+						<div class="comment-head">
+							<b style="float: left;"><%= comments[i].userId.email %>&nbsp;&nbsp;&nbsp;</b>
+							<span><%= comments[i].regdate %>&nbsp;&nbsp;</span>
+							<% for(var j=0; j<parseInt(comments[i].point); j++) { %>
+								<i class="glyphicon glyphicon-star"></i>
+							<% } %>
+							<% for(var j=0; j<parseInt(5-parseInt(comments[i].point)); j++) { %>
+								<i class="glyphicon glyphicon-star-empty"></i>
+							<% } %>
+						</div>
+						<div class="comment-content">
+							<%= comments[i].content %>
+						</div>
 					</div>
 				</div>
-			</div>
-		</li>
+			</li>
+		<% } %>
 	</ul>
 </div>
