@@ -1,10 +1,11 @@
 // models/ user
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
-var jobModel = require('./job').jobSchema;
-var categorySchema = require('./WebtoonCategory').webtoonCategorySchema;
+var job = require('./job').jobSchema;
+var category = require('./WebtoonCategory').webtoonCategorySchema;
 var db = require('./db');
 var webtoonSchema = require('./webtoon').webtoonSchema;
+var platform = require('./WebtoonPlatform').platformSchema;
 var webtoon = require('./webtoon').webtoonModel;
 
 var Schema = mongoose.Schema;
@@ -23,9 +24,16 @@ var userSchema = mongoose.Schema({
     },
     sex: String,
     token: String,
-    readWebtoon: [webtoonSchema]
-    // category
-    // platform 수정해야됨.
+    readWebtoon: [webtoonSchema],
+    preferCategory: {
+        type: Number,
+        ref: 'category'
+    },
+    preferPlatform: {
+        type: Number,
+        ref: 'platform'
+    },
+    profImg: String
 });
 
 // 해쉬 암호화

@@ -5,18 +5,18 @@
         <div class="col-lg-4 col-md-6 col-xs-12">
             <div class="row">
                 <div class="col-xs-4">
-                    <h4>네이버</h4>
+                    <h4><%= user.preferPlatform.name %></h4>
                     <h6>선호 플랫폼</h6>
                 </div>
                 <div class="col-xs-4 profile_content">
-                    <h4>17</h4>
+                    <h4><%= user.age %></h4>
                     <img src="/images/default.png" class="img-circle" alt="">
-                    <h4>이건호</h4>
+                    <h4><%= user.name %></h4>
                     <h4>&nbsp;</h4>
                     <h4>&nbsp;</h4>
                 </div>
                 <div class="col-xs-4">
-                    <h4>드라마</h4>
+                    <h4><%= user.preferCategory.category_name %></h4>
                     <h6>선호 카테고리</h6>
                 </div>
             </div>
