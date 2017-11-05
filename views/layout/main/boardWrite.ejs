@@ -1,0 +1,46 @@
+<div class="diary container">
+    <h3>게시물 쓰기<small>&nbsp;<a href="/board">목록</a></small></h3>
+    <br>
+    <form class="diary-form form-horizontal" method="post">
+
+        <div class="form-group">
+            <label for="title" class="col-sm-2">제목</label>
+            <div class="col-sm-12">
+                <input type="text" name="title" class="form-control" id="title" placeholder="제목을 입력해주세요">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="text" class="col-sm-2">내용</label>
+            <div class="col-sm-12">
+                <textarea class="form-control"name="content" id="content" placeholder="내용을 입력해주세요" rows="5" cols="30"></textarea>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-default btn-primary" value="작성">
+                <input type="reset" class="btn btn-default btn-primary" value="취소">
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $('.diary-form').submit(function() {
+
+        // Get the Login Name value and trim it
+        var title = $.trim($('#title').val());
+        var content = $.trim($('#content').val());
+
+        // Check if empty of not
+        if (title === '') {
+            alert('제목을 입력해주세요.');
+            return false;
+        }
+        if (content === '') {
+            alert('내용을 입력해주세요.');
+            return false;
+        }
+    });
+</script>

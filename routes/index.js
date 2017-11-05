@@ -2,6 +2,17 @@ var express = require('express');
 var router = express.Router();
 var Webtoon = require('../models/webtoon').webtoonModel;
 var Category = require('../models/WebtoonCategory').webtoonCategoryModel;
+var Board = require('../models/board').boardModel;
+var common = require('../config/etc');
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        req.flash('successMessage', '로그인이 필요합니다.');
+        res.redirect('/users/login');
+    }
+}
 
 router.post('/search', function(req, res, next) {
     console.log('value=', req.body.name);
@@ -20,6 +31,45 @@ router.post('/search', function(req, res, next) {
                 user: req.user
             });
         });
+});
+
+router.post('/board/write', isLoggedIn, function(req, res, next) {
+    var board = new Board();
+    board.title = req.body.title;
+    board.content = req.body.content;
+    board.userId = req.user._id;
+    board.regdate = common.regDateTime();
+    board.readCount = 0;
+    board.isNotice = false;
+    board.save();
+    res.redirect('/board');
+});
+
+router.get('/board', function(req, res, next) {
+    Board.find({})
+    .populate('userId')
+    .limit(10)
+    .skip(0)
+    .exec()
+    .then(function(boards) {
+        res.render('etc/board', {
+            title: '자유게시판',
+            user: req.user,
+            boards: boards.reverse()
+        });
+    })
+    .catch(function(err) {
+        if(err)
+            next(err);
+    })
+
+});
+
+router.get('/board/write', isLoggedIn, function(req, res, next) {
+    res.render('etc/writeBoard', {
+        title: '자유게시판',
+        user: req.user
+    });
 });
 
 router.get('/search', function(req, res, next) {

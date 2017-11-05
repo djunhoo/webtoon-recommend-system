@@ -1,7 +1,9 @@
 /* GET users listing. */
 module.exports = function(passport) {
+    require('../config/util');
     var express = require('express');
     var router = express.Router();
+
 
     // 모델 정의 부분
     var User = require('../models/user').userModel;
@@ -14,6 +16,8 @@ module.exports = function(passport) {
     var Platform = require('../models/WebtoonPlatform').platformModel;
 
     // 기타 사용하는 모듈 정의
+    var async = require('async');
+    var Chart = require('chart.js');
     var aws = require('aws-sdk');
     var multer = require('multer');
     var multerS3 = require('multer-s3');
@@ -37,6 +41,13 @@ module.exports = function(passport) {
             res.redirect('/users/login');
         }
     }
+
+    router.get('/recommend', isLoggedIn, function(req, res, next) {
+        res.render('webtoon/recommendType', {
+            title: '웹툰 추천',
+            user: req.user
+        });
+    });
 
     router.get('/login', function(req, res, next) {
         res.render('user/login', {
@@ -123,7 +134,7 @@ module.exports = function(passport) {
                 user.sex = req.body.sex;
                 user.preferCategory = req.body.category;
                 user.preferPlatform = req.body.platform;
-                if(req.file) {
+                if (req.file) {
                     user.profImg = req.file.location;
                 }
                 return user.save();
@@ -136,104 +147,196 @@ module.exports = function(passport) {
 
     router.get('/edit', isLoggedIn, function(req, res, next) {
         Comment.find({
-            userId: req.user._id
-        }).populate('userId')
-        .populate('webtoonId')
-        .populate('preferPlatform')
-        .populate('preferCategory')
-        .exec().then(function(comments) {
-            return Job.find({}).exec().then(function(jobs) {
-                return {
-                    jobs: jobs,
-                    comments: comments
-                }
-            });
-        }).then(function(result) {
-            return Category.find({}).exec().then(function(categorys) {
-                result["categorys"] = categorys
-                return result;
-            });
-        }).then(function(result) {
-            Platform.find({}).exec().then(function(platforms) {
-                res.render('user/edit', {
-                    title: '정보 수정',
-                    tab: 5,
-                    user: req.user,
-                    comments: result.comments,
-                    jobs: result.jobs,
-                    categorys: result.categorys,
-                    platforms: platforms
+                userId: req.user._id
+            }).populate('userId')
+            .populate('webtoonId')
+            .populate('preferPlatform')
+            .populate('preferCategory')
+            .exec().then(function(comments) {
+                return Job.find({}).exec().then(function(jobs) {
+                    return {
+                        jobs: jobs,
+                        comments: comments
+                    }
                 });
+            }).then(function(result) {
+                return Category.find({}).exec().then(function(categorys) {
+                    result["categorys"] = categorys
+                    return result;
+                });
+            }).then(function(result) {
+                Platform.find({}).exec().then(function(platforms) {
+                    res.render('user/edit', {
+                        title: '정보 수정',
+                        tab: 5,
+                        user: req.user,
+                        comments: result.comments,
+                        jobs: result.jobs,
+                        categorys: result.categorys,
+                        platforms: platforms
+                    });
+                });
+            }).catch(function(error) {
+                console.log('err=', err);
             });
-        });
     });
 
     router.get('/mypage', isLoggedIn, function(req, res, next) {
+        console.log('hi');
         Comment.find({
-            userId: req.user._id
-        }).populate('userId')
-        .populate('webtoonId')
-        .populate('preferPlatform')
-        .populate('preferCategory')
-        .exec().then(function(comments) {
-            res.render('user/mypage', {
-                title: '마이 페이지',
-                tab: 1,
-                user: req.user,
-                comments: comments
+                userId: req.user._id
+            }).populate('userId')
+            .populate('webtoonId')
+            .populate('preferPlatform')
+            .populate('preferCategory')
+            .exec().then(function(comments) {
+                res.render('user/mypage', {
+                    title: '마이 페이지',
+                    tab: 1,
+                    user: req.user,
+                    comments: comments
+                });
             });
-        });
     });
 
     router.get('/recommendWebtoons', isLoggedIn, function(req, res, next) {
         Comment.find({
-            userId: req.user._id
-        }).populate('userId')
-        .populate('webtoonId')
-        .populate('preferPlatform')
-        .populate('preferCategory')
-        .exec().then(function(comments) {
-            res.render('user/recommendWebtoons', {
-                title: '마이페이지',
-                tab: 2,
-                user: req.user,
-                comments: comments
+                userId: req.user._id
+            }).populate('userId')
+            .populate('webtoonId')
+            .populate('preferPlatform')
+            .populate('preferCategory')
+            .exec().then(function(comments) {
+                res.render('user/recommendWebtoons', {
+                    title: '마이페이지',
+                    tab: 2,
+                    user: req.user,
+                    comments: comments
+                });
             });
-        });
     });
 
     router.get('/comments', isLoggedIn, function(req, res, next) {
         Comment.find({
-            userId: req.user._id
-        }).populate('userId')
-        .populate('webtoonId')
-        .populate('preferPlatform')
-        .populate('preferCategory')
-        .exec().then(function(comments) {
-            res.render('user/comments', {
-                title: '마이페이지',
-                tab: 3,
-                user: req.user,
-                comments: comments
+                userId: req.user._id
+            }).populate('userId')
+            .populate('webtoonId')
+            .populate('preferPlatform')
+            .populate('preferCategory')
+            .exec().then(function(comments) {
+                console.log('comments=', comments);
+                res.render('user/comments', {
+                    title: '마이페이지',
+                    tab: 3,
+                    user: req.user,
+                    comments: comments
+                });
             });
-        });
     });
+
+    function getMaxOfArray(numArray) {
+        return Math.max.apply(null, numArray);
+    }
+
+    function getRatingMap(comments) {
+        var ratingMap = new Map();
+        for (var i = 0.0; i <= 5.0; i += 0.5) {
+            ratingMap.set(i, 0);
+        }
+        for (var i = 0; i < comments.length; i++) {
+            ratingMap.set(comments[i].point, ratingMap.get(comments[i].point) + 1);
+        }
+        return ratingMap;
+    }
+
+    function getRecommendCategory(results) {
+        var categoryCountMap = new Map();
+        var compareComment = [];
+        for(var i=0; i<results.comments.length; i++) {
+            if(results.comments[i].point >= 3.5) {
+                compareComment.push(results.comments[i]);
+            }
+        }
+        for(var i=0; i<results.categorys.length; i++) {
+            categoryCountMap[results.categorys[i].category_name] = 0;
+        }
+        for(var i=0; i<compareComment.length; i++) {
+            categoryCountMap[compareComment[i].webtoonId.categorys[0].category_name] += 1;
+        }
+
+        var categoryData = [];
+        var categoryLabel = [];
+
+        for(var i=0; i<results.categorys.length; i++) {
+            if(categoryCountMap[results.categorys[i].category_name] > 0) {
+                categoryData.push(results.categorys[i].category_name);
+                categoryLabel.push(categoryCountMap[results.categorys[i].category_name]);
+            }
+        }
+
+        
+    }
 
     router.get('/dashboard', isLoggedIn, function(req, res, next) {
         Comment.find({
-            userId: req.user._id
-        }).populate('userId')
-        .populate('webtoonId')
-        .populate('preferPlatform')
-        .populate('preferCategory')
-        .exec().then(function(comments) {
-            res.render('user/dashboard', {
-                title: '마이페이지',
-                tab: 4,
-                user: req.user,
-                comments: comments
+                userId: req.user._id
+            }).populate('userId')
+            .populate('webtoonId').then(function(comments) {
+                return Category.populate(comments, {
+                        path: 'webtoonId.categorys',
+                        model: 'webtoonCategory'
+                })
+            })
+            .then(function(comments) {
+                return Platform.find({}).exec().then(function(platforms) {
+                        return {
+                            comments: comments,
+                            platforms: platforms
+                        }
+                    })
+            })
+            .then(function(result) {
+                return Category.find({}).exec().then(function(categorys) {
+                    result["categorys"] = categorys;
+                    console.log('results=', result);
+                    return result;
+                });
+            })
+            .then(function(result) {
+                var ratingMap = getRatingMap(result.comments);
+                var chartLabel = [];
+                var chartDatas = [];
+                for (var j = 0.0; j <= 5.0; j += 0.5) {
+                    chartLabel.push(j);
+                    chartDatas.push(ratingMap.get(j));
+                }
+                var maxArray = [];
+                ratingMap.forEach(function(item, key, mapObj) {
+                    if (item == getMaxOfArray(chartDatas)) {
+                        maxArray.push(key);
+                    }
+                });
+                var hello = 0.0;
+                for (var j = 0; j < chartDatas.length; j++) {
+                    hello += chartLabel[j] * chartDatas[j];
+                }
+                var ratingAvg = hello / chartDatas.length;
+                var recommendCategory = getRecommendCategory(result);
+                res.render('user/dashboard', {
+                    title: '마이페이지',
+                    tab: 4,
+                    user: req.user,
+                    comments: result.comments,
+                    maxRating: 5,
+                    chartLabel: chartLabel,
+                    chartDatas: chartDatas,
+                    maxArray: maxArray,
+                    ratingAvg: ratingAvg.toFixed(1)
+                });
+            }).catch(function(err) {
+                console.log('err=', err);
+                next(err);
             });
-        });
     });
 
 

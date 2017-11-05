@@ -1,0 +1,41 @@
+<a type="button" class="btn btn-primary" style="float: right;"href="/board/write">글 쓰기</a>
+<table class="table table-striped">
+    <thead class="thead-light">
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>날짜</th>
+        <th>조회수</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <% for(var i=0; i<boards.length; i++) { %>
+            <tr>
+                <td><%= i+1 %></td>
+                <td><%= boards[i].title %></td>
+                <% if(boards[i].userId.name) { %>
+                    <td><%= boards[i].userId.name %></td>
+                <% } else { %>
+                    <td>비공개</td>
+                <% } %>
+                <td><%= boards[i].regdate %></td>
+                <td><%= boards[i].readCount %></td>
+                <td>
+                    <a href="#">수정</a>
+                    <a href="#">삭제</a>
+                </td>
+            </tr>
+        <% } %>
+
+    </tbody>
+</table>
+<hr>
+<div class="text-center">
+    <ul class="pagination">
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+    </ul>
+</div>
