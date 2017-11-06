@@ -148,10 +148,9 @@ module.exports = function(passport) {
     router.get('/edit', isLoggedIn, function(req, res, next) {
         Comment.find({
                 userId: req.user._id
-            }).populate('userId')
+            })
+            .populate('userId')
             .populate('webtoonId')
-            .populate('preferPlatform')
-            .populate('preferCategory')
             .exec().then(function(comments) {
                 return Job.find({}).exec().then(function(jobs) {
                     return {
@@ -252,29 +251,35 @@ module.exports = function(passport) {
     function getRecommendCategory(results) {
         var categoryCountMap = new Map();
         var compareComment = [];
-        for(var i=0; i<results.comments.length; i++) {
-            if(results.comments[i].point >= 3.5) {
+        for (var i = 0; i < results.comments.length; i++) {
+            if (results.comments[i].point >= 3.5) {
                 compareComment.push(results.comments[i]);
             }
         }
-        for(var i=0; i<results.categorys.length; i++) {
+        for (var i = 0; i < results.categorys.length; i++) {
             categoryCountMap[results.categorys[i].category_name] = 0;
         }
-        for(var i=0; i<compareComment.length; i++) {
+        for (var i = 0; i < compareComment.length; i++) {
             categoryCountMap[compareComment[i].webtoonId.categorys[0].category_name] += 1;
         }
 
         var categoryData = [];
         var categoryLabel = [];
 
-        for(var i=0; i<results.categorys.length; i++) {
-            if(categoryCountMap[results.categorys[i].category_name] > 0) {
+        for (var i = 0; i < results.categorys.length; i++) {
+            if (categoryCountMap[results.categorys[i].category_name] > 0) {
                 categoryData.push(results.categorys[i].category_name);
                 categoryLabel.push(categoryCountMap[results.categorys[i].category_name]);
             }
         }
+        console.log('categoryData=', categoryData);
+        console.log('categoryLabel=', categoryLabel);
+        return {
+            categoryData: categoryData,
+            categoryLabel: categoryLabel
 
-        
+        }
+
     }
 
     router.get('/dashboard', isLoggedIn, function(req, res, next) {
@@ -283,17 +288,17 @@ module.exports = function(passport) {
             }).populate('userId')
             .populate('webtoonId').then(function(comments) {
                 return Category.populate(comments, {
-                        path: 'webtoonId.categorys',
-                        model: 'webtoonCategory'
+                    path: 'webtoonId.categorys',
+                    model: 'webtoonCategory'
                 })
             })
             .then(function(comments) {
                 return Platform.find({}).exec().then(function(platforms) {
-                        return {
-                            comments: comments,
-                            platforms: platforms
-                        }
-                    })
+                    return {
+                        comments: comments,
+                        platforms: platforms
+                    }
+                })
             })
             .then(function(result) {
                 return Category.find({}).exec().then(function(categorys) {
@@ -331,7 +336,8 @@ module.exports = function(passport) {
                     chartLabel: chartLabel,
                     chartDatas: chartDatas,
                     maxArray: maxArray,
-                    ratingAvg: ratingAvg.toFixed(1)
+                    ratingAvg: ratingAvg.toFixed(1),
+                    recommendCategory: recommendCategory
                 });
             }).catch(function(err) {
                 console.log('err=', err);
@@ -339,25 +345,93 @@ module.exports = function(passport) {
             });
     });
 
+    function getRecommendData(req, users) {
+        var myUser = req.user;
+
+        var recommendData = [];
+        var agePoint = 0.2;
+        var jobPoint = 0.1;
+        var categoryPoint = 0.2;
+        var sexPoint = 0.1;
+        var platformPoint = 0.4;
+        for (var i = 0; i < users.length; i++) {
+            console.log('myUser=', myUser);
+            console.log('userArray=', users[i]);
+            if (myUser._id == users[i]._id) {
+                continue;
+            } else if(users[i].sex == undefined || users[i].job == undefined || users[i].age == undefined || users[i].preferCategory == undefined || users[i].preferPlatform == undefined) {
+                continue;
+            } else {
+                var ageSum, jobSum, categorySum, sexSum, platformSum;
+
+                ageSum = (myUser.age == users[i].age) ? 1 * agePoint : 0 * agePoint;
+                jobSum = (myUser.job == users[i].job) ? 1 * jobPoint : 0 * jobPoint;
+                categorySum = (myUser.preferCategory == users[i].preferCategory) ? 1 * categoryPoint : 0 * categoryPoint;
+                sexSum = (myUser.sex == users[i].sex) ? 1 * sexPoint : 0 * sexPoint;
+                platformSum = (myUser.preferPlatform == users[i].preferPlatform) ? 1 * platformPoint : 0 * platformPoint;
+
+                var SumPoint = ageSum + jobSum + categorySum + sexSum + platformSum;
+                recommendData.push({
+                    point: SumPoint,
+                    userId: users[i]._id
+                })
+            }
+        }
+        console.log('infunction=', recommendData);
+        return recommendData;
+    }
+
 
     router.get('/rec', function(req, res, next) {
-        Webtoon.findOne({
-            _id: 1
-        }, function(err, doc) {
+        myUser = req.user;
+        if (myUser.sex == undefined || myUser.job == undefined || myUser.age == undefined || myUser.preferCategory == undefined || myUser.preferPlatform == undefined) {
+            res.redirect('/');
+        }
 
-            var myrec = new Recommend();
-            myrec.user_one_id = 1;
-            myrec.user_two_id = 29;
-            myrec.union = 6.00;
-            myrec.intersection = 4.00;
-            myrec.similarity = 0.6667;
-            myrec.recommend = doc;
-            myrec.save(function(err, doc) {
-                if (err) console.log(err);
+        User.find({}, function(err, users) {
+
+            var recommendData = getRecommendData(req, users);
+            console.log('recommendData=', recommendData)
+            var options = {
+                $or: [{}]
+            };
+
+            recommendData = recommendData.sort(function(a, b) {
+                return b.point - a.point
             });
-            res.json({
-                hi: 'hi'
-            })
+            console.log('sortingrecommendData=', recommendData)
+
+            var maxNumber = recommendData.length < 3 ? recommendData.length : 3;
+            for (var i = 0; i < maxNumber; i++) {
+                options.$or.push({
+                    "_id": recommendData[i].userId
+                });
+            }
+            options.$or.splice(0, 1);
+
+            console.log('options=', options)
+            User.find(options)
+           .exec()
+           .then(function(simmilarUsers) {
+               console.log('simmilarUsers=', simmilarUsers)
+               var recommendWebtoon = [];
+               for(var i=0; i<simmilarUsers.length; i++) {
+
+                   recommendWebtoon.push({
+                       webtoon: simmilarUsers[i].readWebtoon[0],
+                       userId: simmilarUsers[i]._id
+                   });
+               }
+               console.log('recommendWebtoon=', recommendWebtoon);
+
+               res.render('user/recommendResult', {
+                   user:req.user,
+                   title: "웹툰 추천",
+                   webtoons: recommendWebtoon
+               })
+
+           });
+
         });
     });
 
