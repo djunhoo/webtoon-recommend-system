@@ -388,7 +388,7 @@ module.exports = function(passport) {
             res.redirect('/');
         }
 
-        User.find({$where : "this.readWebtoon.length > 1"}, function(err, users) {
+        User.find({$where : "this.readWebtoon.length > 0"}, function(err, users) {
 
             var recommendData = getRecommendData(req, users);
             console.log('recommendData=', recommendData)
