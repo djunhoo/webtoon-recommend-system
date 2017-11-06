@@ -416,7 +416,6 @@ module.exports = function(passport) {
                console.log('simmilarUsers=', simmilarUsers)
                var recommendWebtoon = [];
                for(var i=0; i<simmilarUsers.length; i++) {
-
                    recommendWebtoon.push({
                        webtoon: simmilarUsers[i].readWebtoon[0],
                        userId: simmilarUsers[i]._id
@@ -429,7 +428,6 @@ module.exports = function(passport) {
                    title: "웹툰 추천",
                    webtoons: recommendWebtoon
                })
-
            });
 
         });
