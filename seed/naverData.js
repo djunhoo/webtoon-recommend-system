@@ -37,7 +37,8 @@ urlModel.find({}, function(err, urls) {
       console.log('strPoint=', parseFloat(strPoint));
       console.log('linkURL=', "http://comic.naver.com" + url.url);
       console.log('category=', url.category);
-      Webtoon.findOne({name: strName}, function(err, webtoon){
+      var sulink = "http://comic.naver.com" + url.url;
+      Webtoon.findOne({link_url: sulink}, function(err, webtoon){
           if(webtoon){
               console.log('중복');
           } else (!webtoon){
