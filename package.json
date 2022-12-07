@@ -16,7 +16,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "ejs": "~2.5.6",
-    "express": "~4.15.2",
+    "express": "~4.17.3",
     "express-session": "^1.15.5",
     "iconv-lite": "^0.4.19",
     "image-downloader": "^3.3.0",
